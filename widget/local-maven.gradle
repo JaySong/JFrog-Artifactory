@@ -1,8 +1,8 @@
 apply plugin: 'com.jfrog.artifactory'
 apply plugin: 'maven-publish'
 
-//def artifactVersion = '1.0.0'//发布的版本
-def artifactVersion = '1.1-SNAPSHOT'//发布的版本
+//def artifactVersion = '1.0.0'//release包发布的版本
+def artifactVersion = '1.1-SNAPSHOT'//snapshot包发布的版本
 
 publishing {
     publications {
@@ -11,30 +11,6 @@ publishing {
             artifactId project.name
             version = artifactVersion
             artifact "${project.buildDir}/outputs/aar/${project.name}-release.aar"
-            pom.withXml {
-                def root = asNode()
-                def license = root.appendNode('licenses').appendNode('license')
-                license.appendNode('name', 'The Apache Software License, Version 2.0')
-                license.appendNode('url', 'http://www.apache.org/licenses/LICENSE-2.0.txt')
-                license.appendNode('distribution', 'repo')
-            }
-//            pom.withXml {
-//                def root = asNode()
-//                def license = root.appendNode('licenses').appendNode('license')
-//                license.appendNode('name', 'The Apache Software License, Version 2.0')
-//                license.appendNode('url', 'http://www.apache.org/licenses/LICENSE-2.0.txt')
-//                license.appendNode('distribution', 'repo')
-//                license.appendNode('groupId', 'com.jay')
-//                license.appendNode('artifactId', project.name)
-//                license.appendNode('version', artifactVersion)
-////                def dependencies = asNode().appendNode('dependencies')
-////                configurations.getByName("_releaseCompile").getResolvedConfiguration().getFirstLevelModuleDependencies().each {
-////                    def dependency = dependencies.appendNode('dependency')
-////                    dependency.appendNode('groupId','lsw.widget')
-////                    dependency.appendNode('artifactId', project.name)
-////                    dependency.appendNode('version', artifactVersion)
-////                }
-//            }
         }
     }
 }
